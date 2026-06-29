@@ -1150,10 +1150,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Pre-process markdown by injecting HTML spans with matching IDs for placeholders
   function injectPlaceholdersIntoMarkdown(text) {
-    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    const gtSignatureHtml = isLocal
-      ? '<img src="aman_sig.png" alt="Aman S Goutam Signature" style="max-height:48px; display:inline-block; vertical-align:middle;" />'
-      : '<span class="typed-signature-rendered" style="font-family: \'Playball\', cursive; font-size:1.6rem; color:#1a1c1c;">Aman S Goutam</span>';
+    const gtSignatureHtml = '<span style="font-family: \'Plus Jakarta Sans\', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--secondary-green); letter-spacing: 0.03em;">[ Digitally Approved ]</span>';
     // 1. Effective date day and month (Flexible underscores support)
     text = text.replace(
       /entered\s+into\s+on\s+this\s+(?:\\_)+\s+day\s+of\s+(?:\\_)+/gi,
