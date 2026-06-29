@@ -1181,6 +1181,13 @@ h1, h2, h3, h4, h5, h6, span, label, button, input, textarea, select {
 
 /* Extra mobile view enhancements */
 @media (max-width: 900px) {
+  .stepper-container {
+    padding: 12px 16px !important;
+    margin-bottom: 24px !important;
+  }
+  .step-label {
+    display: none !important;
+  }
   .preview-toolbar {
     height: auto !important;
     min-height: 64px !important;
