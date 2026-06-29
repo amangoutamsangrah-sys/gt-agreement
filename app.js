@@ -1150,6 +1150,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Pre-process markdown by injecting HTML spans with matching IDs for placeholders
   function injectPlaceholdersIntoMarkdown(text) {
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const gtSignatureHtml = isLocal
+      ? '<img src="aman_sig.png" alt="Aman S Goutam Signature" style="max-height:48px; display:inline-block; vertical-align:middle;" />'
+      : '<span class="typed-signature-rendered" style="font-family: \'Playball\', cursive; font-size:1.6rem; color:#1a1c1c;">Aman S Goutam</span>';
     // 1. Effective date day and month (Flexible underscores support)
     text = text.replace(
       /entered\s+into\s+on\s+this\s+(?:\\_)+\s+day\s+of\s+(?:\\_)+/gi,
@@ -1196,7 +1200,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Replace GroundTruth main Approvals block (flexible newlines)
     text = text.replace(
       /### \*\*For Batchnorm Technologies LLP\*\*\s*\(Operating as GroundTruth\)\s*\*\*Name:\*\*\s*(?:\\_)+\s*\*\*Designation:\*\*\s*(?:\\_)+\s*\*\*Signature:\*\*\s*(?:\\_)+\s*\*\*Date:\*\*\s*(?:\\_)+/gi,
-      '### **For Batchnorm Technologies LLP**\n\n(Operating as GroundTruth)\n\n**Name:** <span id="view-gt-name" class="highlight-placeholder filled">Aman S Goutam</span>\n\n**Designation:** <span id="view-gt-designation" class="highlight-placeholder filled">CEO & Founder</span>\n\n**Signature:** <span id="view-gt-sig-container" class="signature-display-placeholder"><img src="aman_sig.png" onerror="this.outerHTML=\'<span class=\x22typed-signature-rendered\x22 style=\x22font-family: \\\'Playball\\\', cursive; font-size:1.6rem; color:#1a1c1c;\x22>Aman S Goutam</span>\'" alt="Aman S Goutam Signature" style="max-height:48px; display:inline-block; vertical-align:middle;" /></span>\n\n**Date:** <span id="view-gt-sig-date" class="highlight-placeholder">June 29, 2026</span>'
+      `### **For Batchnorm Technologies LLP**\n\n(Operating as GroundTruth)\n\n**Name:** <span id="view-gt-name" class="highlight-placeholder filled">Aman S Goutam</span>\n\n**Designation:** <span id="view-gt-designation" class="highlight-placeholder filled">CEO & Founder</span>\n\n**Signature:** <span id="view-gt-sig-container" class="signature-display-placeholder">${gtSignatureHtml}</span>\n\n**Date:** <span id="view-gt-sig-date" class="highlight-placeholder">June 29, 2026</span>`
     );
 
     // Replace Facility Owner main Approvals block
@@ -1208,7 +1212,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Replace SOW GroundTruth approvals block
     text = text.replace(
       /\*\*GroundTruth\*\*\s*Name:\s*Designation:\s*Signature:\s*Date:/gi,
-      '**GroundTruth**\n\nName: <span id="view-sow-gt-name" class="highlight-placeholder filled">Aman S Goutam</span>\n\nDesignation: <span id="view-sow-gt-designation" class="highlight-placeholder filled">CEO & Founder</span>\n\nSignature: <span id="view-sow-gt-sig-container" class="signature-display-placeholder"><img src="aman_sig.png" onerror="this.outerHTML=\'<span class=\x22typed-signature-rendered\x22 style=\x22font-family: \\\'Playball\\\', cursive; font-size:1.6rem; color:#1a1c1c;\x22>Aman S Goutam</span>\'" alt="Aman S Goutam Signature" style="max-height:48px; display:inline-block; vertical-align:middle;" /></span>\n\nDate: <span id="view-sow-gt-sig-date" class="highlight-placeholder">June 29, 2026</span>'
+      `**GroundTruth**\n\nName: <span id="view-sow-gt-name" class="highlight-placeholder filled">Aman S Goutam</span>\n\nDesignation: <span id="view-sow-gt-designation" class="highlight-placeholder filled">CEO & Founder</span>\n\nSignature: <span id="view-sow-gt-sig-container" class="signature-display-placeholder">${gtSignatureHtml}</span>\n\nDate: <span id="view-sow-gt-sig-date" class="highlight-placeholder">June 29, 2026</span>`
     );
 
     // Replace SOW Facility Owner approvals block
