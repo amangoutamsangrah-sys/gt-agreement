@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GroundTruth - Agreement Executions Admin Registry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-indigo: #363f8c;
+      --primary-light: #eef0fa;
+      --secondary-green: #48a47c;
+      --text-primary: #1a1c1c;
+      --text-secondary: #5c6061;
+      --outline-variant: #e0e4e5;
+      --surface-container-lowest: #ffffff;
+      --surface-container-low: #f8fafb;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--surface-container-low);
+      color: var(--text-primary);
+      line-height: 1.5;
+      padding: 40px 20px;
+    }
+
+    .admin-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: var(--surface-container-lowest);
+      border: 1px solid var(--outline-variant);
+      border-radius: 1.5rem;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--outline-variant);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      height: 28px;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-indigo);
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .registry-badge {
+      background-color: rgba(72, 164, 124, 0.08);
+      border: 1px solid var(--secondary-green);
+      color: var(--secondary-green);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: 1rem;
+      border: 1px solid var(--outline-variant);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background-color: var(--primary-light);
+      color: var(--primary-indigo);
+      padding: 16px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    td {
+      padding: 16px;
+      border-bottom: 1px solid var(--outline-variant);
+      color: var(--text-secondary);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: rgba(238, 240, 250, 0.3);
+    }
+
+    .company-cell {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-view {
+      background-color: var(--primary-indigo);
+      color: #ffffff;
+    }
+
+    .btn-view:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .no-data {
+      padding: 48px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="admin-container">
+    <header>
+      <div class="brand-section">
+        <img src="gt_logo.svg" alt="GroundTruth Logo" class="brand-logo">
+        <div>
+          <h1>Agreement Executions</h1>
+          <div class="subtitle">Securely trace and retrieve finalized factory master agreements</div>
+        </div>
+      </div>
+      <div class="registry-badge">Admin Control Panel</div>
+    </header>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Company / Partner</th>
+            <th>Executed By</th>
+            <th>SOW Number</th>
+            <th>Project Name</th>
+            <th>Date Finalized</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="registryBody">
+          <tr>
+            <td colspan="6" class="no-data">Loading registry records...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('/api/agreements')
+        .then(res => res.json())
+        .then(data => {
+          const body = document.getElementById('registryBody');
+          body.innerHTML = '';
+          
+          if (data.length === 0) {
+            body.innerHTML = '<tr><td colspan="6" class="no-data">No signed agreements have been logged in the backend registry yet.</td></tr>';
+            return;
+          }
+
+          data.forEach(item => {
+            const tr = document.createElement('tr');
+            
+            // Build absolute path to execution portal with loaded query string
+            const viewLink = `${window.location.origin}/index.html?state=${item.shareUrlState}`;
+
+            tr.innerHTML = `
+              <td class="company-cell">${escapeHtml(item.companyName)}</td>
+              <td>
+                <div style="font-weight: 500; color: var(--text-primary);">${escapeHtml(item.signatoryName)}</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">${escapeHtml(item.signatoryDesignation)}</div>
+              </td>
+              <td><span style="font-family: monospace; font-size: 0.8rem;">${escapeHtml(item.sowNumber)}</span></td>
+              <td>${escapeHtml(item.projectName)}</td>
+              <td>${escapeHtml(item.executionDate)}</td>
+              <td>
+                <a href="${viewLink}" target="_blank" class="btn btn-view">View Legal Document</a>
+              </td>
+            `;
+            body.appendChild(tr);
+          });
+        })
+        .catch(err => {
+          console.error(err);
+          document.getElementById('registryBody').innerHTML = '<tr><td colspan="6" class="no-data" style="color: red;">Error fetching agreement registry from backend server.</td></tr>';
+        });
+
+      function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+    });
+  </script>
+</body>
+</html>

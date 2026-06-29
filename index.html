@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Execute Master Facility Access Agreement | GroundTruth</title>
+  <!-- Google Fonts: Plus Jakarta Sans for UI, and Great Vibes/Playball/Montserrat for signatures -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Great+Vibes&family=Playball&family=Montserrat:ital,wght@1,600&display=swap" rel="stylesheet">
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="index.css">
+  <!-- Marked.js Markdown Parser via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+  <!-- Web App Layout Container -->
+  <div class="app-container" id="appLayout">
+    
+    <!-- Top Header -->
+    <header class="app-header no-print">
+      <div class="header-left">
+        <!-- GroundTruth Logo as is (no extra text next to it) -->
+        <img src="gt_logo.svg" alt="GroundTruth Logo" class="brand-logo" id="headerLogo">
+      </div>
+      <div class="header-right">
+        <div class="status-indicator">
+          <span class="pulse-dot"></span>
+          <span id="systemStatus">Ready to Execute</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="app-content">
+      
+      <!-- Mobile View Switcher Toggle -->
+      <div class="mobile-toggle-bar no-print">
+        <button type="button" class="mobile-toggle-btn active" id="btnMobileForm">Edit Details</button>
+        <button type="button" class="mobile-toggle-btn" id="btnMobilePreview">Preview Document</button>
+      </div>
+
+      <!-- Left Pane: Wizard Form Step-by-Step -->
+      <section class="wizard-pane no-print" id="wizardPane">
+        
+        <!-- Step Stepper Header -->
+        <div class="stepper-container">
+          <div class="step-item active" id="stepIndicator1">
+            <div class="step-number">1</div>
+            <div class="step-label">Entity Details</div>
+          </div>
+          <div class="step-line"></div>
+          <div class="step-item" id="stepIndicator2">
+            <div class="step-number">2</div>
+            <div class="step-label">Sign & Finalize</div>
+          </div>
+          <div class="step-line"></div>
+          <div class="step-item" id="stepIndicator3">
+            <div class="step-number">3</div>
+            <div class="step-label">Download & Share</div>
+          </div>
+        </div>
+
+        <!-- Step Content Cards -->
+        <div class="wizard-steps-wrapper">
+          
+          <!-- Step 1: Entity Details -->
+          <div class="wizard-step active" id="step1">
+            <div class="step-intro">
+              <h2 class="section-title">Facility Access Master Agreement</h2>
+              <p class="section-desc">Please fill in the formal information of the facility/factory owner to populate the agreement document. All details sync with the document preview in real-time.</p>
+            </div>
+
+            <form id="detailsForm" class="form-grid">
+              
+              <!-- Company Name -->
+              <div class="form-group full-width">
+                <label for="companyName" class="input-label">Facility Owner / Company Name</label>
+                <input type="text" id="companyName" class="form-input" placeholder="e.g. Apex Manufacturing Solutions Ltd." required autocomplete="off">
+                <span class="input-hint">The full legal entity name of the factory or facility owner.</span>
+              </div>
+
+              <!-- Jurisdiction -->
+              <div class="form-group half-width">
+                <label for="jurisdiction" class="input-label">Jurisdiction of Incorporation</label>
+                <input type="text" id="jurisdiction" class="form-input" placeholder="e.g. Delaware, Karnataka, etc." required autocomplete="off">
+                <span class="input-hint">The state or country laws under which the company is registered.</span>
+              </div>
+
+              <!-- Effective Date Day/Month -->
+              <div class="form-group half-width">
+                <label class="input-label">Effective Date</label>
+                <div class="dual-inputs">
+                  <input type="text" id="effectiveDay" class="form-input" placeholder="Day (e.g. 29th)" required autocomplete="off">
+                  <input type="text" id="effectiveMonth" class="form-input" placeholder="Month (e.g. June)" required autocomplete="off">
+                </div>
+                <span class="input-hint">Day and Month the agreement starts. Year is locked to 2026.</span>
+              </div>
+
+              <!-- Registered Address -->
+              <div class="form-group full-width">
+                <label for="registeredAddress" class="input-label">Company Registered Office Address</label>
+                <textarea id="registeredAddress" class="form-textarea" placeholder="e.g. Plot No 45, Industrial Suburb, Phase 2, Bengaluru, KA - 560010" required></textarea>
+                <span class="input-hint">The physical registered office address for legal notifications.</span>
+              </div>
+
+
+              <!-- Statement of Work (SOW) Details -->
+              <div style="margin: 20px 0 10px 0; border-top: 1px solid var(--outline-variant); padding-top: 20px;">
+                <h3 style="font-size: 1.1rem; color: var(--primary-indigo); margin-bottom: 4px;">Statement of Work (SOW) Details</h3>
+                <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px;">Configure SOW and Annexure A parameters below.</p>
+              </div>
+
+              <div class="dual-inputs">
+                <div class="form-group" style="flex: 1;">
+                  <label for="sowNumber" class="input-label">SOW Number</label>
+                  <input type="text" id="sowNumber" class="form-input" placeholder="e.g. GT-SOW-2026-001" required autocomplete="off">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                  <label for="projectName" class="input-label">Project Name</label>
+                  <input type="text" id="projectName" class="form-input" placeholder="e.g. Factory Video Capture" required autocomplete="off">
+                </div>
+              </div>
+
+              <div class="dual-inputs">
+                <div class="form-group" style="flex: 1;">
+                  <label for="clientName" class="input-label">Client Name (if disclosable)</label>
+                  <input type="text" id="clientName" class="form-input" placeholder="e.g. Alpha Robotics Inc." required autocomplete="off">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                  <label for="sowExecDate" class="input-label">SOW Date of Execution</label>
+                  <input type="text" id="sowExecDate" class="form-input" placeholder="e.g. June 29, 2026" required autocomplete="off">
+                </div>
+              </div>
+
+              <div class="dual-inputs">
+                <div class="form-group" style="flex: 1;">
+                  <label for="gtPm" class="input-label">GroundTruth PM</label>
+                  <input type="text" id="gtPm" class="form-input" placeholder="e.g. Nikhil Malhotra" required autocomplete="off">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                  <label for="facilityRep" class="input-label">Facility Representative</label>
+                  <input type="text" id="facilityRep" class="form-input" placeholder="e.g. Sarah Connor" required autocomplete="off">
+                </div>
+              </div>
+
+              <!-- Domain Focus Checkboxes -->
+              <div class="form-group full-width" style="margin-top: 12px;">
+                <label class="input-label">Domain Focus</label>
+                <div class="checkbox-grid">
+                  <label class="checkbox-item"><input type="checkbox" id="chk-robotics"> Robotics</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-computervision"> Computer Vision</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-embodiedai"> Embodied AI</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-industrialautomation"> Industrial Automation</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-foundationmodels"> Foundation Models</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-research"> Research</label>
+                </div>
+                <div style="margin-top: 8px;">
+                  <label class="checkbox-item" style="margin-bottom: 4px;"><input type="checkbox" id="chk-domainother"> Other Domain</label>
+                  <input type="text" id="txt-domainother" class="form-input" placeholder="Specify other domain..." disabled style="margin-top:4px; padding: 8px 12px; font-size: 0.8rem;">
+                </div>
+              </div>
+
+              <!-- Data Capture Devices Checkboxes -->
+              <div class="form-group full-width" style="margin-top: 12px;">
+                <label class="input-label">Data Capture Devices</label>
+                <div class="checkbox-grid">
+                  <label class="checkbox-item"><input type="checkbox" id="chk-headmounted"> Head Mounted Camera</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-bodycamera"> Body Camera</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-smartphone"> Smartphone</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-actioncamera"> Action Camera</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-dslr"> DSLR</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-depthcamera"> Depth Camera</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-lidar"> LiDAR</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-audiorecorder"> Audio Recorder</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-imu"> IMU</label>
+                </div>
+                <div style="margin-top: 8px;">
+                  <label class="checkbox-item" style="margin-bottom: 4px;"><input type="checkbox" id="chk-deviceother"> Other Device</label>
+                  <input type="text" id="txt-deviceother" class="form-input" placeholder="Specify other device..." disabled style="margin-top:4px; padding: 8px 12px; font-size: 0.8rem;">
+                </div>
+              </div>
+
+              <!-- Data Deliverables Checkboxes -->
+              <div class="form-group full-width" style="margin-top: 12px;">
+                <label class="input-label">Data Deliverables</label>
+                <div class="checkbox-grid">
+                  <label class="checkbox-item"><input type="checkbox" id="chk-rawvideo"> Raw Video</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-metadata"> Metadata</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-annotations"> Annotations</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-qareports"> QA Reports</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-benchmark"> Benchmark Dataset</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-evaluation"> Evaluation Dataset</label>
+                </div>
+                <div style="margin-top: 8px;">
+                  <label class="checkbox-item" style="margin-bottom: 4px;"><input type="checkbox" id="chk-dataother"> Other Data Type</label>
+                  <input type="text" id="txt-dataother" class="form-input" placeholder="Specify other data type..." disabled style="margin-top:4px; padding: 8px 12px; font-size: 0.8rem;">
+                </div>
+              </div>
+
+              <!-- Fee Model Checkboxes -->
+              <div class="form-group full-width" style="margin-top: 12px;">
+                <label class="input-label">Compensation / Fee Model</label>
+                <div class="checkbox-grid">
+                  <label class="checkbox-item"><input type="checkbox" id="chk-fixedfee"> Fixed Fee</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-dailyrate"> Daily Rate</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-hourly"> Hourly</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-nocostpilot"> No Cost Pilot</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-clientsponsored"> Client Sponsored</label>
+                  <label class="checkbox-item"><input type="checkbox" id="chk-collaboration"> Research Collaboration</label>
+                </div>
+              </div>
+
+              <!-- Facility Details & Instructions -->
+              <div class="section-divider">
+                <h3>Facility Details & Special Instructions</h3>
+                <p>Specify the target facility's locations, contacts, and special operational parameters.</p>
+              </div>
+
+              <div class="dual-inputs">
+                <div class="form-group" style="flex: 1;">
+                  <label for="facilityName" class="input-label">Facility Name</label>
+                  <input type="text" id="facilityName" class="form-input" placeholder="e.g. Pune Assembly Line B" required autocomplete="off">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                  <label for="facilityAddress" class="input-label">Facility Address</label>
+                  <input type="text" id="facilityAddress" class="form-input" placeholder="e.g. Sector 4, Bopodi Industrial Zone" required autocomplete="off">
+                </div>
+              </div>
+
+              <div class="dual-inputs">
+                <div class="form-group" style="flex: 1;">
+                  <label for="facilityDept" class="input-label">Department / Area</label>
+                  <input type="text" id="facilityDept" class="form-input" placeholder="e.g. Packing & Sorting Floor" required autocomplete="off">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                  <label for="recordingZones" class="input-label">Recording Zones</label>
+                  <input type="text" id="recordingZones" class="form-input" placeholder="e.g. Conveyor Belt 1 & 2 Areas" required autocomplete="off">
+                </div>
+              </div>
+
+              <div class="dual-inputs">
+                <div class="form-group" style="flex: 1;">
+                  <label for="restrictedAreas" class="input-label">Restricted Areas</label>
+                  <input type="text" id="restrictedAreas" class="form-input" placeholder="e.g. High Voltage Power Room" required autocomplete="off">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                  <label for="assemblyPoint" class="input-label">Emergency Assembly Point</label>
+                  <input type="text" id="assemblyPoint" class="form-input" placeholder="e.g. Main Gate Parking Lot" required autocomplete="off">
+                </div>
+              </div>
+
+              <div class="dual-inputs">
+                <div class="form-group" style="flex: 1;">
+                  <label for="primaryContact" class="input-label">Primary Contact</label>
+                  <input type="text" id="primaryContact" class="form-input" placeholder="e.g. John Connor (Manager)" required autocomplete="off">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                  <label for="secondaryContact" class="input-label">Secondary Contact</label>
+                  <input type="text" id="secondaryContact" class="form-input" placeholder="e.g. Sarah Connor (Supervisor)" required autocomplete="off">
+                </div>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="emergencyContact" class="input-label">Emergency Contact Number</label>
+                <input type="text" id="emergencyContact" class="form-input" placeholder="e.g. +91 98765 43210" required autocomplete="off">
+              </div>
+
+              <div class="form-group full-width">
+                <label for="specialInstructions" class="input-label">Special Instructions (Annexure Section 9)</label>
+                <textarea id="specialInstructions" class="form-textarea" placeholder="Type any special operational protocols or custom terms here..." style="min-height: 80px;"></textarea>
+                <span class="input-hint">These instructions will populate Annexure A Section 9.</span>
+              </div>
+
+              <div class="wizard-actions">
+                <button type="button" class="btn btn-primary" id="btnGoToStep2">
+                  Continue to Signature
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+          <!-- Step 2: Signatory Details -->
+          <div class="wizard-step" id="step2">
+            <div class="step-intro">
+              <h2 class="section-title">Signatory & Execution</h2>
+              <p class="section-desc">Provide the details of the authorized representative signing this agreement. Draw or type your signature below.</p>
+            </div>
+
+            <div class="form-grid">
+              
+              <!-- Signatory Name -->
+              <div class="form-group half-width">
+                <label for="signatoryName" class="input-label">Authorized Signatory Name</label>
+                <input type="text" id="signatoryName" class="form-input" placeholder="e.g. John Doe" required autocomplete="off">
+                <span class="input-hint">Full name of the signing officer.</span>
+              </div>
+
+              <!-- Signatory Designation -->
+              <div class="form-group half-width">
+                <label for="signatoryDesignation" class="input-label">Title / Designation</label>
+                <input type="text" id="signatoryDesignation" class="form-input" placeholder="e.g. Director, Plant Head" required autocomplete="off">
+                <span class="input-hint">Official capacity of the signatory.</span>
+              </div>
+
+              <!-- Signature Pad Area -->
+              <div class="form-group full-width">
+                <div class="signature-tabs">
+                  <button type="button" class="sig-tab active" id="tabDrawSig">Draw Signature</button>
+                  <button type="button" class="sig-tab" id="tabTypeSig">Type Signature</button>
+                  <button type="button" class="sig-tab" id="tabUploadSig">Upload Image</button>
+                </div>
+                
+                <!-- Draw Canvas Signature -->
+                <div class="signature-pad-container" id="drawSigContainer">
+                  <canvas id="signatureCanvas" width="500" height="180"></canvas>
+                  <div class="canvas-actions">
+                    <button type="button" class="btn btn-sm btn-outline" id="btnClearCanvas">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                      Clear Drawing
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Type Signature -->
+                <div class="signature-type-container hidden" id="typeSigContainer">
+                  <input type="text" id="typedSigInput" class="form-input" placeholder="Type your signature here..." autocomplete="off">
+                  <div class="sig-font-selector">
+                    <button type="button" class="font-btn active" style="font-family: 'Great Vibes', cursive;" data-font="Great Vibes">Style 1</button>
+                    <button type="button" class="font-btn" style="font-family: 'Playball', cursive;" data-font="Playball">Style 2</button>
+                    <button type="button" class="font-btn" style="font-family: 'Montserrat', sans-serif; font-style: italic; font-weight: 600;" data-font="Montserrat">Style 3</button>
+                  </div>
+                  <div class="typed-sig-preview">
+                    <div id="typedSigPreviewText" style="font-family: 'Great Vibes', cursive;">Signature Preview</div>
+                  </div>
+                </div>
+
+                <!-- Upload Image Signature -->
+                <div class="signature-upload-container hidden" id="uploadSigContainer">
+                  <input type="file" id="sigImageUpload" accept="image/*" class="form-input" style="padding: 8px;">
+                  <span class="input-hint">Upload a transparent PNG signature image. Max 2MB.</span>
+                  <div class="uploaded-sig-preview" style="height: 120px; background-color: #ffffff; border-radius: 1rem; display: flex; align-items: center; justify-content: center; border: 1px solid var(--outline-variant); margin-top: 10px; overflow: hidden; padding: 10px;">
+                    <span id="uploadSigPreviewText" style="color: var(--text-muted); font-size: 0.85rem;">No image uploaded yet</span>
+                    <img id="uploadedSigImg" class="hidden" style="max-height: 100px; max-width: 100%; object-fit: contain;">
+                  </div>
+                </div>
+                
+                <span class="input-hint">By signing, you agree that this electronic signature is as legally binding as a handwritten one.</span>
+              </div>
+
+              <!-- GroundTruth Representative Details (ReadOnly Mock for this execution flow) -->
+              <div class="form-group full-width gt-auth-info">
+                <div class="gt-auth-header">
+                  <span class="badge badge-green">GroundTruth Authorized signatory</span>
+                </div>
+                <div class="gt-auth-body">
+                  <div class="gt-auth-detail"><strong>Name:</strong> Aman S Goutam</div>
+                  <div class="gt-auth-detail"><strong>Title:</strong> CEO & Founder</div>
+                  <div class="gt-auth-detail"><strong>Status:</strong> Pre-signed and Logged</div>
+                </div>
+              </div>
+
+              <div class="wizard-actions">
+                <button type="button" class="btn btn-outline" id="btnBackToStep1">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                  Back
+                </button>
+                <button type="button" class="btn btn-primary btn-success" id="btnSignAgreement">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                  Finalize & Sign
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Step 3: Success & Download -->
+          <div class="wizard-step" id="step3">
+            <div class="success-screen">
+              <div class="success-icon-wrapper">
+                <div class="success-icon">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 5 12"></polyline></svg>
+                </div>
+              </div>
+
+              <h2 class="section-title">Agreement Executed!</h2>
+              <p class="section-desc">The Master Agreement has been populated and legally signed on <span id="executionLoggedDate">--/--/----</span>.</p>
+
+              <!-- Download Button -->
+              <div class="action-card">
+                <h3>Export Agreement</h3>
+                <p>Download a high-quality, formatted print version of the complete signed agreement for your legal archives.</p>
+                <button type="button" class="btn btn-primary btn-lg" id="btnDownloadPDF">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                  Download Signed PDF
+                </button>
+              </div>
+
+              <!-- Permanent Shareable Link -->
+              <div class="action-card">
+                <h3>Permanent Retrieval Link</h3>
+                <p>This permanent link stores the signed state. Bookmark or share this link to load and download the completed agreement anytime.</p>
+                <div class="share-link-wrapper">
+                  <input type="text" id="shareLinkInput" class="form-input share-input" readonly value="Generating link...">
+                  <button type="button" class="btn btn-outline" id="btnCopyLink">Copy</button>
+                </div>
+                <div class="toast-message" id="toastMsg">Link copied to clipboard!</div>
+              </div>
+
+              <!-- Restart Option -->
+              <button type="button" class="btn btn-ghost btn-sm" id="btnResetForm">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                Reset & Execute New Agreement
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- Right Pane: Document Preview Container -->
+      <section class="preview-pane" id="previewPane">
+        
+        <!-- Document Toolbar / Controls -->
+        <div class="preview-toolbar no-print">
+          <div class="toolbar-left">
+            <span class="toolbar-title">Agreement Preview</span>
+            <span class="badge badge-outline" id="previewBadge">Live Draft</span>
+          </div>
+          <div class="toolbar-right">
+            <!-- Scroll to Signature Block -->
+            <button type="button" class="btn btn-sm btn-outline" id="btnScrollToSig" title="Scroll directly to the signature field">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+              Signature Spot
+            </button>
+            <!-- Toggle full-screen agreement review -->
+            <button type="button" class="btn btn-sm btn-outline" id="btnToggleFullScreen" title="Maximize document reader">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="fullScreenIcon"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+              <span>Full Screen</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Rendered Document Frame -->
+        <div class="document-container">
+          <div class="document-paper" id="documentPaper">
+            
+            <!-- Printed Header (only visible on print/PDF) -->
+            <div class="print-only print-header">
+              <img src="gt_logo.svg" alt="GroundTruth Logo" class="print-brand-logo">
+              <div class="print-header-meta">Master Facility Access Agreement</div>
+            </div>
+
+            <!-- Loading Spinner (Dynamic Markdown Fetch) -->
+            <div class="doc-loading" id="docLoading">
+              <svg class="animate-spin" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" style="opacity:0.25;"></circle>
+                <path d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" fill="currentColor"></path>
+              </svg>
+              <span>Loading Agreement Text...</span>
+            </div>
+
+            <!-- Dynamic Markdown Contents Rendered Here -->
+            <div class="doc-html-content" id="docHtmlContent"></div>
+
+          </div>
+        </div>
+
+        <!-- Floating Scroll to Top button -->
+        <button type="button" class="scroll-top-btn no-print" id="btnScrollToTop" title="Scroll to top of document">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+        </button>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
